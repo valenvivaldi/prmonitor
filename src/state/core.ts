@@ -25,6 +25,7 @@ export class Core {
   @observable overallStatus: "loading" | "loaded" = "loading";
   @observable refreshing = false;
   @observable token: string | null = null;
+  @observable tokenBitbucket: string | null = null;
   @observable loadedState: LoadedState | null = null;
   @observable muteConfiguration = NOTHING_MUTED;
   @observable notifiedPullRequestUrls = new Set<string>();
@@ -70,6 +71,18 @@ export class Core {
   async setNewToken(token: string) {
     this.token = token;
     await this.context.store.token.save(token);
+    await this.saveRefreshing(false);
+    await this.saveError(null);
+    await this.saveNotifiedPullRequests([]);
+    await this.saveLoadedState(null);
+    await this.saveMuteConfiguration(NOTHING_MUTED);
+    await this.load();
+    this.triggerBackgroundRefresh();
+  }
+
+  async setNewTokenBB(token: string) {
+    this.tokenBitbucket = token;
+    await this.context.store.tokenBitbucket.save(token);
     await this.saveRefreshing(false);
     await this.saveError(null);
     await this.saveNotifiedPullRequests([]);

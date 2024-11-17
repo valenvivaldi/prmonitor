@@ -27,6 +27,7 @@ export function buildStore(chromeApi: ChromeApi): Store {
       []
     ),
     token: chromeValueStorage<string>(chromeApi, "gitHubApiToken"),
+    tokenBitbucket: chromeValueStorage<string>(chromeApi, "bitbucketApiToken"),
     lastRequestForTabsPermission: chromeValueStorage<number>(
       chromeApi,
       "lastRequestForTabsPermission"

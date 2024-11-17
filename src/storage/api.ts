@@ -36,6 +36,12 @@ export interface Store {
   token: ValueStorage<string | null>;
 
   /**
+   * Storage of the user's provided Bitbucket token.
+   */
+  tokenBitbucket: ValueStorage<string | null>;
+
+
+  /**
    * Storage of the last timestamp we requested the "tabs" permission.
    */
   lastRequestForTabsPermission: ValueStorage<number | null>;
